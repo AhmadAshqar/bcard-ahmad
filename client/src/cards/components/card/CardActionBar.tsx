@@ -9,19 +9,21 @@ import CallIcon from "@mui/icons-material/Call";
 import ROUTES from "../../../routes/routesModel";
 import { useNavigate } from "react-router-dom";
 import CardInterface from "../../interfaces/CardInterface";
+import useCards from "../../hooks/useCards";
 
 type Props = {
-  onDelete: (x: string) => void;
   cardId: string;
 };
 
-const CardActionBar: React.FC<Props> = ({ onDelete, cardId }) => {
+const CardActionBar: React.FC<Props> = ({ cardId }) => {
+  const {handleDeleteCard, handleLikeCard} = useCards()
   const navigate = useNavigate();
+  const handleDelete = (cardId: string) => handleDeleteCard(cardId)
 
   return (
     <CardActions disableSpacing sx={{ pt: 0, justifyContent: "space-between" }}>
       <Box>
-        <IconButton onClick={() => onDelete(cardId)} aria-label="delete card">
+        <IconButton onClick={() => handleDelete(cardId)} aria-label="delete card">
           <DeleteIcon />
         </IconButton>
 
@@ -34,7 +36,7 @@ const CardActionBar: React.FC<Props> = ({ onDelete, cardId }) => {
         <IconButton aria-label="call business">
           <CallIcon />
         </IconButton>
-        <IconButton aria-label="add to fav">
+        <IconButton onClick={()=> handleLikeCard(cardId)} aria-label="add to fav">
           <FavoriteIcon />
         </IconButton>
       </Box>

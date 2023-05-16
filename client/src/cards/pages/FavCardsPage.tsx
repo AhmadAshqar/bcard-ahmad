@@ -5,17 +5,17 @@ import CardsFeedback from "../components/CardsFeedback";
 import useCards from "../hooks/useCards";
 
 const CardsPage = () => {
-  const {cards, error, isLoading, handleGetCards} = useCards()
+  const {cards, error, isLoading, handleGetMyCards} = useCards()
   
   useEffect(()=>{
-    handleGetCards()
+    handleGetMyCards()
   },[])
 
 
   return (
     <Container>
       <PageHeader
-        title="Cards Page"
+        title="Favorite Cards Page"
         subtitle="Here you can find all types of business cards"
       />
       <CardsFeedback isLoading={isLoading} error={error} cards={cards} />

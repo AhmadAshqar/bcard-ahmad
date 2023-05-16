@@ -6,6 +6,8 @@ import AboutPage from "../pages/AboutPage";
 import ErrorPage from "../pages/ErrorPage";
 import SignupPage from "../users/pages/SignupPage";
 import CardDetailsPage from "../cards/pages/CardDetailsPage";
+import MyCardsPage from "../cards/pages/MyCardsPage";
+import FavCardsPage from "../cards/pages/FavCardsPage";
 import CardEditPage from "../cards/pages/CardEditPage";
 import SandboxMenu from "../sandbox/SandboxMenu";
 import Template from "../sandbox/components/Template";
@@ -36,6 +38,8 @@ const Router = () => {
     <Routes>
       <Route path={ROUTES.ROOT} element={<CardsPage />} />
       <Route path={ROUTES.CARDS} element={<CardsPage />} />
+      <Route path={ROUTES.MY_CARDS} element={<MyCardsPage />} />
+      <Route path={ROUTES.FAV_CARDS} element={<FavCardsPage />} />
       <Route path={`${ROUTES.CARD_DETAILS}/:cardId`} element={<CardDetailsPage />} />
       <Route path={`${ROUTES.CARD_EDIT}/:cardId`} element={<CardEditPage />} />
       <Route path={ROUTES.ABOUT} element={<AboutPage />} />
