@@ -38,6 +38,7 @@ export const SANDBOX_ROUTES = {
   RaisingEvents: "RaisingEvents",
   Babel: "Babel",
   Loops: "Loops",
+  FORM: "form",
 };
 
 export default ROUTES;
