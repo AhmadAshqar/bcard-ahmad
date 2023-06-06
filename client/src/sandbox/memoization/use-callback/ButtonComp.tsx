@@ -5,7 +5,6 @@ type Props = {
   onClick: () => void;
   children: ReactNode;
 };
-
 const ButtonComp: React.FC<Props> = ({ onClick, children }) => {
   colorLog(`rendering button ${children}`, "#2d65ff");
   return (
@@ -15,5 +14,5 @@ const ButtonComp: React.FC<Props> = ({ onClick, children }) => {
   );
 };
 
-// export default ButtonComp;
-export default React.memo(ButtonComp);
+export default ButtonComp;
+// export default React.memo(ButtonComp);

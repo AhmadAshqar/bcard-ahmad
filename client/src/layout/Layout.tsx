@@ -1,13 +1,13 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Header from "./header/Header";
 import Main from "./main/Main";
 import Footer from "./footer/Footer";
 
-type Props = {
-  children: ReactNode;
+type LayoutProp = {
+  children: JSX.Element[] | JSX.Element;
 };
 
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<LayoutProp> = ({ children }) => {
   return (
     <>
       <Header />

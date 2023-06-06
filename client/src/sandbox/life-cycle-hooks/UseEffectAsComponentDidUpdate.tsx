@@ -1,13 +1,9 @@
 import { useState, useEffect } from "react";
-import { colorLog } from "./utils";
+import { colorLog } from "../utils";
 
 const UseEffectAsComponentDidUpdate = () => {
   const [count, setCount] = useState(0);
   const [num, setNum] = useState(0);
-
-  // useEffect(() => {
-  //   colorLog("In useEffect num", "purple");
-  // }, [num]);
 
   useEffect(() => {
     colorLog("In useEffect", "#2d65ff");

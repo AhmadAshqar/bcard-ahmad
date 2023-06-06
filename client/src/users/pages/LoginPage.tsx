@@ -1,77 +1,71 @@
-import Joi from "joi";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import ROUTES from "../../routes/routesModel";
+import { useUser } from "../providers/UserProvider";
+import useHandleUsers from "../hooks/useHandleUsers";
 import useForm from "../../forms/hooks/useForm";
+import initialLoginForm from "../helpers/initialForms/initialLoginForm";
+import loginSchema from "../models/Joi/loginSchema";
 import Container from "@mui/material/Container";
 import Form from "../../forms/components/Form";
 import Input from "../../forms/components/Input";
-import { useNavigate } from "react-router-dom";
-import ROUTES from "../../routes/routesModel";
-import { Button } from "@mui/material";
-
-type Data = {
-  email: string;
-  password: string;
-};
+import FormLink from "../../forms/components/FormLink";
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-
-  const initialLoginForm = {
-    email: "",
-    password: "",
-  };
-
-  const loginSchema = {
-    email: Joi.string().min(4).required(),
-    password: Joi.string().min(8).required(),
-  };
-
-  const handleLogin = (data: Data) => {
-    console.log(data);
-    handleReset();
-  };
+  const { user } = useUser();
+  const { handleLogin } = useHandleUsers();
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [blockExpiry, setBlockExpiry] = useState<Date | null>(null);
 
   const { value, ...rest } = useForm(
     initialLoginForm,
     loginSchema,
     handleLogin
   );
-  const { data, errors } = value;
-  const { handleChange, handleReset, onSubmit, validateForm } = rest;
+
+          useEffect(() => {
+        if (blockExpiry && new Date().getTime() >= blockExpiry.getTime()) {
+          setIsBlocked(false);
+          setFailedAttempts(0);
+          setBlockExpiry(null);
+        }
+      }, [blockExpiry]);
+
+  if (user) return <Navigate replace to={ROUTES.CARDS} />;
 
   return (
     <Container
       sx={{
-        height: "80vh",
+        paddingTop: 8,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
       }}>
       <Form
-        title="Login"
-        onSubmit={onSubmit}
-        onReset={handleReset}
-        onFormChange={validateForm}
-        spacing={1}>
+        onSubmit={rest.onSubmit}
+        onReset={rest.handleReset}
+        onFormChange={rest.validateForm}
+        title="login"
+        styles={{ maxWidth: "450px" }}
+        to={ROUTES.CARDS}>
         <Input
           label="email"
           name="email"
-          data={data}
-          error={errors.email}
-          onInputChange={handleChange}
+          type="email"
+          error={value.errors.email}
+          onInputChange={rest.handleInputChange}
+          data={value.data}
         />
         <Input
           label="password"
           name="password"
-          data={data}
-          error={errors.password}
-          onInputChange={handleChange}
+          type="password"
+          error={value.errors.password}
+          onInputChange={rest.handleInputChange}
+          data={value.data}
         />
-
-        <Button variant="text" onClick={() => navigate(ROUTES.SIGNUP)}>
-          {" "}
-          register...
-        </Button>
+        <FormLink text="Did not registered yet?" to={ROUTES.SIGNUP} />
       </Form>
     </Container>
   );

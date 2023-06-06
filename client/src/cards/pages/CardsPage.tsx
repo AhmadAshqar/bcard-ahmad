@@ -1,24 +1,36 @@
-import React, {useState, useEffect} from "react";
-import PageHeader from "../../components/PageHeader";
-import { Container } from "@mui/material";
+import React, { useEffect } from "react";
+import Container from "@mui/material/Container";
 import CardsFeedback from "../components/CardsFeedback";
+import PageHeader from "../../components/PageHeader";
 import useCards from "../hooks/useCards";
 
-const CardsPage = () => {
-  const {cards, error, isLoading, handleGetCards} = useCards()
-  
-  useEffect(()=>{
-    handleGetCards()
-  },[])
+type CardsPageProps = {};
 
+const CardsPage: React.FC<CardsPageProps> = () => {
+  const { value, handleGetCards, handleDeleteCard } = useCards();
+  const { error, isLoading, filteredCards } = value;
+
+  useEffect(() => {
+    handleGetCards();
+  }, []);
+
+  const onDeleteCard = async (cardId: string) => {
+    await handleDeleteCard(cardId);
+    await handleGetCards();
+  };
 
   return (
     <Container>
       <PageHeader
         title="Cards Page"
-        subtitle="Here you can find all types of business cards"
+        subtitle="On this page you can find all business cards form all categories"
       />
-      <CardsFeedback isLoading={isLoading} error={error} cards={cards} />
+      <CardsFeedback
+        cards={filteredCards}
+        error={error}
+        isLoading={isLoading}
+        onDelete={onDeleteCard}
+      />
     </Container>
   );
 };

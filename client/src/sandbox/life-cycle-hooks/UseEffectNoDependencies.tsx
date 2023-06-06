@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { colorLog } from "./utils";
+import { colorLog } from "../utils";
 
 const UseEffectNoDependencies = () => {
   const [count, setCount] = useState(0);

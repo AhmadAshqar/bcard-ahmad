@@ -1,8 +1,8 @@
-body {
-  margin: 0;
+* {
   padding: 0;
+  margin: 0;
   box-sizing: border-box;
-  font-family: "roboto", "sans-serif";
+  font-family: "Roboto", "san-serif";
 }
 
 .center {
@@ -13,4 +13,40 @@ body {
 
 .cursor {
   cursor: pointer;
+}
+
+.profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.profile-container {
+  max-width: 500px;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 1px 6px 10px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 500px;
+}
+
+.profile-info {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-row h3 {
+  margin-right: 10px;
+}
+
+.profile-row p {
+  margin: 0;
 }

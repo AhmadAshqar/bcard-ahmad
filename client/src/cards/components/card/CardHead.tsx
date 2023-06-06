@@ -1,19 +1,14 @@
 import React from "react";
-import ImageInterface from "../../interfaces/ImageInterface";
 import CardMedia from "@mui/material/CardMedia";
+import ImageInterface from "../../models/interfaces/ImageInterface";
 
-type Props = { image: ImageInterface };
+type CardHeadProps = {
+  image: ImageInterface;
+};
 
-const CardHead: React.FC<Props> = ({ image }) => {
+const CardHead = ({ image }: CardHeadProps) => {
   const { url, alt } = image;
-  return (
-    <CardMedia
-      component="img"
-      image={url}
-      alt={alt}
-      sx={{ width: "100%", aspectRatio: "16/9", objectFit: "cover" }}
-    />
-  );
+  return <CardMedia component="img" image={url} height="194" alt={alt} />;
 };
 
 export default CardHead;

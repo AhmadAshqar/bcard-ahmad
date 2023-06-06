@@ -25,10 +25,10 @@
 
 // export default CustomCounterHook;
 
-import React from "react";
 import useCounter from "./useCounter";
 
 const CustomCounterHook = () => {
+  // שההוק מחזיר מערך עם מספר סוגי מידע צריך לוודא שמשתנה הוא פונקציה לפני שמשתמשים בו בחלק של התצוגה לגולש
   const [counter, increment, decrement, reset] = useCounter();
 
   return (
@@ -40,7 +40,6 @@ const CustomCounterHook = () => {
           increment
         </button>
       )}
-
       {typeof decrement === "function" && (
         <button onClick={decrement} style={{ padding: 3 }}>
           decrement

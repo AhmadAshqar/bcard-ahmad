@@ -8,7 +8,7 @@ type BreakPointsKeysType = "xs" | "sm" | "md" | "lg" | "xl";
 type BreakPointValueType = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 type Props = {
-  variant?: VariantType
+  variant?: VariantType;
   type?: string;
   name: string;
   data: Record<string, unknown>;
@@ -28,10 +28,10 @@ const Input: FC<Props> = ({
   required = true,
   error,
   onInputChange,
-  breakPoints = { xs: 12 },
+  breakPoints,
 }) => {
   return (
-    <Grid item {...breakPoints}>
+    <Grid item xs={12} {...breakPoints}>
       <TextField
         variant={variant}
         label={makeFirstLetterCapital(label)}
@@ -40,8 +40,8 @@ const Input: FC<Props> = ({
         name={name}
         value={data[name] ? data[name] : ""}
         required={required}
-        helperText={error}
         error={Boolean(error)}
+        helperText={error}
         onChange={onInputChange}
         fullWidth
         autoComplete="off"

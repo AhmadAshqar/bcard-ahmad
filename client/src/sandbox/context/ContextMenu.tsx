@@ -8,7 +8,6 @@ import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import NavItem from "../../layout/components/NavItem";
 import DrawerListItem from "../DrawerListItem";
-import { SANDBOX_ROUTES } from "../../routes/routesModel";
 
 const ContextMenu = () => {
   const [isOpen, setOpen] = useState(false);
@@ -38,8 +37,8 @@ const ContextMenu = () => {
         </Drawer>
 
         <Box sx={{ display: { xs: "none", md: "inline-flex" } }}>
-          <NavItem label="name" to={SANDBOX_ROUTES.NAME} color="black" />
-          <NavItem label="snackbar" to={SANDBOX_ROUTES.SNACK} color="black" />
+          <NavItem label="name" to="name" color="black" />
+          <NavItem label="snackbar" to="snack" color="black" />
         </Box>
       </AppBar>
 

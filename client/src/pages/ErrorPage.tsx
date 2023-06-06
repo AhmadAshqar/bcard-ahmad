@@ -22,7 +22,7 @@ const ErrorPage = () => {
           <Button
             variant="text"
             color="primary"
-            onClick={() => navigate(ROUTES.ROOT)}
+            onClick={() => navigate(ROUTES.CARDS)}
           >
             Click here to return to the home page...
           </Button>

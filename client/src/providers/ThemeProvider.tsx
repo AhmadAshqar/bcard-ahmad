@@ -1,12 +1,10 @@
 import React, {
   useState,
   useContext,
-  ReactNode,
-  SetStateAction,
-  useMemo,
   useCallback,
+  useMemo,
+  ReactNode,
 } from "react";
-
 import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
@@ -26,13 +24,13 @@ type Props = {
 export const ThemeProvider: React.FC<Props> = ({ children }) => {
   const [isDark, setDark] = useState(false);
 
+  const toggleDarkMode = useCallback(() => setDark(prev => !prev), [setDark]);
+
   const theme = createTheme({
     palette: {
       mode: isDark ? "dark" : "light",
     },
   });
-  
-  const toggleDarkMode = useCallback(() => setDark(prev => !prev), []);
 
   const value = useMemo(() => {
     return { isDark, toggleDarkMode };
@@ -50,5 +48,3 @@ export const useTheme = () => {
   if (!context) throw new Error("useTheme must be used within a ThemeProvider");
   return context;
 };
-
-export default ThemeProvider;

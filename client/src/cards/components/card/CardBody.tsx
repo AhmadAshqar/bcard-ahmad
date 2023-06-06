@@ -1,27 +1,28 @@
 import React from "react";
-import CardInterface from "../../interfaces/CardInterface";
+import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import { Divider, Box } from "@mui/material";
+import CardRow from "./CardRow";
+import CardInterface from "../../models/interfaces/CardInterface";
 
-import CardContent from "@mui/material/CardContent";
-import CardBodyRow from "./CardBodyRow";
+type CardBodyProps = {
+  card: CardInterface;
+};
 
-type Props = { card: CardInterface };
-
-const CardBody: React.FC<Props> = ({ card }) => {
-  const { title, subtitle, address, phone, bizNumber } = card;
-  const { city, houseNumber, street, country } = address;
+const CardBody = ({ card }: CardBodyProps) => {
+  const { street, houseNumber, city } = card.address;
   return (
-    <CardContent sx={{ pb: 1 }}>
-      <CardHeader title={title} subheader={subtitle} sx={{ p: 0, mb: 1 }} />
+    <CardContent>
+      <CardHeader
+        title={card.title}
+        subheader={card.subtitle}
+        sx={{ p: 0, mb: 1 }}
+      />
       <Divider />
       <Box mt={1}>
-        <CardBodyRow title="Phone" content={phone} />
-        <CardBodyRow
-          title="Address"
-          content={`${street} ${houseNumber} ${city} ${country}`}
-        />
-        <CardBodyRow title="card number" content={String(bizNumber)} />
+        <CardRow title="phone" content={card.phone} />
+        <CardRow title="address" content={`${street} ${houseNumber} ${city}`} />
+        <CardRow title="card number" content={String(card.bizNumber)} />
       </Box>
     </CardContent>
   );

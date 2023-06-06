@@ -4,6 +4,7 @@ import React, {
   useContext,
   ReactNode,
   SetStateAction,
+  useMemo,
 } from "react";
 
 type ContextArgs = {
@@ -24,11 +25,11 @@ export const NameProvider: React.FC<Props> = ({ children }) => {
     setName("david");
   }, []);
 
-  return (
-    <NameContext.Provider value={{ name, setName }}>
-      {children}
-    </NameContext.Provider>
-  );
+  const value = useMemo(() => {
+    return { name, setName };
+  }, [name, setName]);
+
+  return <NameContext.Provider value={value}>{children}</NameContext.Provider>;
 };
 
 export const useName = () => {

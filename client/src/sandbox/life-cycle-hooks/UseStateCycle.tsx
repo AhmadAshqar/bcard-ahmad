@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { colorLog } from "./utils";
+import { colorLog } from "../utils";
 
 const UseStateCycle = () => {
   const [count, setCount] = useState(() => {
@@ -7,7 +7,7 @@ const UseStateCycle = () => {
 
     setTimeout(() => {
       setCount(prev => prev + 1);
-    }, 3000);
+    }, 2000);
 
     return 0;
   });

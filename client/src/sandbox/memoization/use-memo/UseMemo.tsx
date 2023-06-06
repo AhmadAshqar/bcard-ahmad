@@ -9,12 +9,11 @@ const UseMemo = () => {
   const incrementHeight = () => setHeight(prev => prev + 1);
 
   const slowFunction = () => {
-    for (let i = 0; i < 2_500_000_000; i++) {}
+    for (let i = 0; i < 3_000_000_000; i++) {}
     colorLog("in slow function", "#4caf50");
+
     return age * 2;
   };
-
-  console.log(typeof slowFunction);
 
   return (
     <div style={{ position: "fixed", left: "50%", top: "50%" }}>
@@ -39,12 +38,10 @@ const UseMemo = () => {
 //   const incrementHeight = () => setHeight(prev => prev + 1);
 
 //   const slowFunction = useMemo(() => {
-//     for (let i = 0; i < 2_500_000_000; i++) {}
+//     for (let i = 0; i < 3_000_000_000; i++) {}
 //     colorLog("in slow function", "#4caf50");
 //     return age * 2;
 //   }, [age]);
-
-//   console.log(typeof slowFunction);
 
 //   return (
 //     <div style={{ position: "fixed", left: "50%", top: "50%" }}>
