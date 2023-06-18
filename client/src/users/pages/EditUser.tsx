@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import ROUTES from "../../routes/routesModel";
 import { useUser } from "../providers/UserProvider";
@@ -13,17 +13,34 @@ import Input from "../../forms/components/Input";
 import { Checkbox, FormControlLabel, Grid } from "@mui/material";
 import normalizeUser from "../helpers/normalization/normalizeUser";
 import PageHeader from "../../components/PageHeader";
+import UserType from "../models/types/userType";
 
 const EditUser = () => {
   const { user } = useUser();
-  const { handleUpdateUser } = useHandleUsers();
+  const { handleUpdateUser, handleGetUser } = useHandleUsers();
   const { value, ...rest } = useForm(
     initialSignupForm,
     signupSchema,
     handleUpdateUser
   );
 
-  if (!user) return <Navigate replace to={ROUTES.CARDS} />;
+  const [DATA, setDATA] = useState<UserType | null>(null);
+
+  useEffect(() => {
+    if (user && user._id) {
+      handleGetUser(user._id)
+        .then((data) => {
+          if (data) {
+            setDATA(data);
+            console.log(data);
+            
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
 
   return (
     <Container>
@@ -51,7 +68,7 @@ const EditUser = () => {
         label="first name"
         error={value.errors.first}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.name : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -59,7 +76,7 @@ const EditUser = () => {
         label="middle name"
         error={value.errors.middle}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.name : value.data}
         breakPoints={{ sm: 6 }}
         required={false}
         />
@@ -68,7 +85,7 @@ const EditUser = () => {
         label="last name"
         error={value.errors.last}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.name : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -77,7 +94,7 @@ const EditUser = () => {
         type="phone"
         error={value.errors.phone}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA : value.data}
         breakPoints={{ sm: 6 }}
       />
       <Input
@@ -86,7 +103,7 @@ const EditUser = () => {
         type="email"
         error={value.errors.email}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -95,7 +112,7 @@ const EditUser = () => {
         type="password"
         error={value.errors.password}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -103,7 +120,7 @@ const EditUser = () => {
         label="image url"
         error={value.errors.url}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.image : value.data}
         breakPoints={{ sm: 6 }}
         required={false}
         />
@@ -112,7 +129,7 @@ const EditUser = () => {
         label="image alt"
         error={value.errors.alt}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.image : value.data}
         breakPoints={{ sm: 6 }}
         required={false}
         />
@@ -121,7 +138,7 @@ const EditUser = () => {
         label="state"
         error={value.errors.state}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.address : value.data}
         breakPoints={{ sm: 6 }}
         required={false}
       />
@@ -130,7 +147,7 @@ const EditUser = () => {
         name="country"
         error={value.errors.country}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.address : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -138,7 +155,7 @@ const EditUser = () => {
         label="city"
         error={value.errors.city}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.address : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -146,7 +163,7 @@ const EditUser = () => {
         label="street"
         error={value.errors.street}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.address : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -155,7 +172,7 @@ const EditUser = () => {
         type="number"
         error={value.errors.houseNumber}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.address : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -163,7 +180,7 @@ const EditUser = () => {
         label="zip"
         error={value.errors.zip}
         onInputChange={rest.handleInputChange}
-        data={value.data}
+        data={DATA? DATA.address : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Grid item>
