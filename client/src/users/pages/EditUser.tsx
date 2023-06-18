@@ -15,32 +15,40 @@ import normalizeUser from "../helpers/normalization/normalizeUser";
 import PageHeader from "../../components/PageHeader";
 import UserType from "../models/types/userType";
 import Error from "../../components/Error";
+import ErrorPage from "../../pages/ErrorPage";
+import Spinner from "../../components/Spinner";
 
 const EditUser = () => {
   const { user } = useUser();
-  const { handleUpdateUser, handleGetUser } = useHandleUsers();
+  const { handleUpdateUser, handleGetUser, value: { isLoading, error} } = useHandleUsers();
   const { value, ...rest } = useForm(
     initialSignupForm,
     signupSchema,
     handleUpdateUser
   );
-
   const [DATA, setDATA] = useState<UserType | null>(null);
-
+  
   useEffect(() => {
     if (user && user._id) {
       handleGetUser(user._id)
-        .then((data) => {
-          if (data) {
-            setDATA(data);
-          }
-        })
-        .catch((error) => {
-          <Error errorMessage={error}/>
-        });
+      .then((data) => {
+        if (data) {
+          setDATA(data);
+        }
+      })
+      .catch((error) => {
+        <Error errorMessage={error}/>
+      });
     }
   }, []);
+  
+    if (isLoading) {
+    return <Spinner/>
+  }
 
+  if (error) {
+    return <ErrorPage/>
+  }
   return (
     <Container>
 
