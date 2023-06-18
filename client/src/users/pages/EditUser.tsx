@@ -14,6 +14,7 @@ import { Checkbox, FormControlLabel, Grid } from "@mui/material";
 import normalizeUser from "../helpers/normalization/normalizeUser";
 import PageHeader from "../../components/PageHeader";
 import UserType from "../models/types/userType";
+import Error from "../../components/Error";
 
 const EditUser = () => {
   const { user } = useUser();
@@ -32,12 +33,10 @@ const EditUser = () => {
         .then((data) => {
           if (data) {
             setDATA(data);
-            console.log(data);
-            
           }
         })
         .catch((error) => {
-          console.error(error);
+          <Error errorMessage={error}/>
         });
     }
   }, []);
