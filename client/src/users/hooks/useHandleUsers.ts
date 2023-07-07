@@ -193,7 +193,6 @@ const useHandleUsers = () => {
         }
         const normalizedEditUser = normalizeUser(userFromClient);
         normalizedEditUser._id = user?._id;
-        console.log(normalizedEditUser);
         const userFromServer = await updateUser(normalizedEditUser);
         if (userFromServer) {
           requestStatus(false, null, userFromServer, null);

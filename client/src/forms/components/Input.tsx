@@ -15,6 +15,7 @@ type Props = {
   label: string;
   required?: boolean;
   error?: string;
+  isDisabled?: boolean;
   onInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
   breakPoints?: Partial<Record<BreakPointsKeysType, BreakPointValueType>>;
 };
@@ -29,6 +30,7 @@ const Input: FC<Props> = ({
   error,
   onInputChange,
   breakPoints,
+  isDisabled
 }) => {
   return (
     <Grid item xs={12} {...breakPoints}>
@@ -45,6 +47,7 @@ const Input: FC<Props> = ({
         onChange={onInputChange}
         fullWidth
         autoComplete="off"
+        disabled={isDisabled}
       />
     </Grid>
   );

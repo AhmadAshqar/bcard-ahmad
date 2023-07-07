@@ -110,7 +110,16 @@ const EditUser = () => {
         type="email"
         error={value.errors.email}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA : value.data}
+        data={DATA ? { ...DATA, email: DATA.email } : value.data}
+        breakPoints={{ sm: 6 }}
+        />
+      <Input
+        name="password"
+        label="password"
+        type="password"
+        error={value.errors.password}
+        onInputChange={rest.handleInputChange}
+        data={DATA ? { ...DATA, password: DATA.password } : value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
