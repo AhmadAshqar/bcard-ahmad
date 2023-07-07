@@ -75,7 +75,7 @@ const EditUser = () => {
         label="first name"
         error={value.errors.first}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.name : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -83,7 +83,7 @@ const EditUser = () => {
         label="middle name"
         error={value.errors.middle}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.name : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         required={false}
         />
@@ -92,7 +92,7 @@ const EditUser = () => {
         label="last name"
         error={value.errors.last}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.name : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -101,7 +101,7 @@ const EditUser = () => {
         type="phone"
         error={value.errors.phone}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
       />
       <Input
@@ -114,20 +114,11 @@ const EditUser = () => {
         breakPoints={{ sm: 6 }}
         />
       <Input
-        name="password"
-        label="password"
-        type="password"
-        error={value.errors.password}
-        onInputChange={rest.handleInputChange}
-        data={DATA? DATA : value.data}
-        breakPoints={{ sm: 6 }}
-        />
-      <Input
         name="url"
         label="image url"
         error={value.errors.url}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.image : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         required={false}
         />
@@ -136,7 +127,7 @@ const EditUser = () => {
         label="image alt"
         error={value.errors.alt}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.image : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         required={false}
         />
@@ -145,7 +136,7 @@ const EditUser = () => {
         label="state"
         error={value.errors.state}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.address : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         required={false}
       />
@@ -154,7 +145,7 @@ const EditUser = () => {
         name="country"
         error={value.errors.country}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.address : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -162,7 +153,7 @@ const EditUser = () => {
         label="city"
         error={value.errors.city}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.address : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -170,7 +161,7 @@ const EditUser = () => {
         label="street"
         error={value.errors.street}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.address : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -179,7 +170,7 @@ const EditUser = () => {
         type="number"
         error={value.errors.houseNumber}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.address : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         />
       <Input
@@ -187,7 +178,7 @@ const EditUser = () => {
         label="zip"
         error={value.errors.zip}
         onInputChange={rest.handleInputChange}
-        data={DATA? DATA.address : value.data}
+        data={value.data}
         breakPoints={{ sm: 6 }}
         />
       <Grid item>
