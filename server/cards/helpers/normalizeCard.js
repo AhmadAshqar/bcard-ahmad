@@ -1,21 +1,24 @@
-const generateBizNumber = require("./generateBizNumber");
+const { generateBizNumber } = require("./generateBizNumber");
 
 const normalizeCard = async (rawCard, userId) => {
-  const { url, alt } = rawCard.image;
   const image = {
     url:
-      url ||
+      rawCard.image.url ||
       "https://cdn.pixabay.com/photo/2016/04/20/08/21/entrepreneur-1340649_960_720.jpg",
-    alt: alt || "Business card image",
+    alt: rawCard.image.alt || "Business card image",
+  };
+
+  const address = {
+    ...rawCard.address,
+    state: rawCard.address.state || "",
+    zip: rawCard.address.zip || 0,
   };
 
   return {
     ...rawCard,
+    web: rawCard.web || "",
     image,
-    address: {
-      ...rawCard.address,
-      state: rawCard.address.state || "",
-    },
+    address,
     bizNumber: rawCard.bizNumber || (await generateBizNumber()),
     user_id: rawCard.user_id || userId,
   };

@@ -1,6 +1,5 @@
-const Card = require("../models/mongodb/Card");
 const lodash = require("lodash");
-const { handleBadRequest } = require("../../utils/handleErrors");
+const Card = require("../models/mongoose/Card");
 
 const generateBizNumber = async () => {
   try {
@@ -12,8 +11,8 @@ const generateBizNumber = async () => {
     if (card) return generateBizNumber();
     return random;
   } catch (error) {
-    return handleBadRequest("GenerateBizNumber", error);
+    return Promise.reject(`Mongoose Error: ${error.message}`);
   }
 };
 
-module.exports = generateBizNumber;
+exports.generateBizNumber = generateBizNumber;

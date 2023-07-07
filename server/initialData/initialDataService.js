@@ -1,35 +1,57 @@
-const chalk = require("chalk");
 const normalizeCard = require("../cards/helpers/normalizeCard");
-const { createCard } = require("../cards/models/cardsAccessDataService");
-const { registerUser } = require("../users/models/usersAccessDataService");
-const data = require("./initialData.json");
+const validateCard = require("../cards/models/joi/validateCard");
+const Card = require("../cards/models/mongoose/Card");
 const normalizeUser = require("../users/helpers/normalizeUser");
-const { generateUserPassword } = require("../users/helpers/bcrypt");
+const registerValidation = require("../users/models/joi/registerValidation");
+const User = require("../users/models/mongoose/User");
+const data = require("./initialData.json");
+const chalk = require("chalk");
 
 const generateInitialCards = async () => {
   const { cards } = data;
+  const userId = "649d3238bac95e85fa0f0546";
   cards.forEach(async card => {
     try {
-      const userId = "6376274068d78742d84f31d2";
-      card = await normalizeCard(card, userId);
-      await createCard(card);
-      return;
+      const { error } = validateCard(card);
+      if (error) throw new Error(`Joi Error: ${error.details[0].message}`);
+
+      const normalizedCard = await normalizeCard(card, userId);
+      const cardToDB = new Card(normalizedCard);
+      await cardToDB.save();
+      console.log(
+        chalk.greenBright(`Generate card '${card.title}' successfully`)
+      );
     } catch (error) {
-      return console.log(chalk.redBright(error.message));
+      console.log(
+        chalk.redBright(`Initial Data Generate Card Error: ${error.message}`)
+      );
     }
   });
 };
 
 const generateInitialUsers = async () => {
   const { users } = data;
+
   users.forEach(async user => {
     try {
-      user = await normalizeUser(user);
-      user.password = generateUserPassword(user.password);
-      await registerUser(user);
-      return;
+      const { error } = registerValidation(user);
+      if (error) throw new Error(`Joi Error: ${error.details[0].message}`);
+
+      const normalizedUser = normalizeUser(user);
+
+      const userForBD = new User(normalizedUser);
+      await userForBD.save();
+      console.log(
+        chalk.greenBright(
+          `Generate User '${
+            user.name.first + " " + user.name.last
+          }' successfully`
+        )
+      );
     } catch (error) {
-      return console.log(chalk.redBright(error.message));
+      console.log(
+        chalk.redBright(`Initial Data Generate User Error: ${error.message}`)
+      );
     }
   });
 };
