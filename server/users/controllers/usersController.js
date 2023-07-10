@@ -168,10 +168,9 @@ const deleteUser = async (req, res) => {
     const { userId } = req.params;
     const token = req.header("x-auth-token");
     const user = verifyToken(token);
-    const { _id } = user;
     const userFromDB = await User.findOne({ _id: userId });
     
-    if (_id === userFromDB._id.toString() || !!userFromDB.isAdmin) {
+    if (userId === userFromDB._id.toString() || !!user.isAdmin) {
       const userToDelete = await User.findByIdAndDelete(userId);
 
       if (!userToDelete)
